@@ -1,8 +1,8 @@
-fastapi
-uvicorn
-pydantic
-python-multipart
-orjson
-loguru
-aiofiles
-environs
+fastapi==0.128.0
+uvicorn==0.40.0
+pydantic==2.12.5
+python-multipart==0.0.22
+orjson==3.11.6
+loguru==0.7.3
+aiofiles==25.1.0
+environs==14.5.0
