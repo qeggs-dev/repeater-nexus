@@ -42,6 +42,6 @@ async def remove(pool: str, id: str):
     return ORJSONResponse(
         content = {
             "status": "success",
-            "file_uuid": uuid
+            "message": "File removed"
         }
     )
