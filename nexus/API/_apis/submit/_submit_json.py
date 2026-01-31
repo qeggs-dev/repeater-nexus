@@ -9,7 +9,7 @@ from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 from ._request import SubmitRequest
 
-@Resource.app.post("/api/{poll}/submit/json")
+@Resource.app.post("/api/{pool}/submit/json")
 async def submit_json(pool: str, request: SubmitRequest):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
