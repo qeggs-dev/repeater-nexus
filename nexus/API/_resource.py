@@ -3,6 +3,7 @@ import uvicorn
 from typing import Any, Callable, ClassVar, Sequence
 from fastapi import FastAPI
 from ..Delayed_Tasks_Pool import DelayedTasksPool
+from ..Lifespan import ExitHandler
 from ._lifespan import lifespan
 from .._info import __version__
 
@@ -19,6 +20,12 @@ class Resource:
     )
 
     delayed_tasks_pool: ClassVar[DelayedTasksPool] = DelayedTasksPool()
+
+    @classmethod
+    def init_delayed_task_pool(cls) -> None:
+        ExitHandler.add_function(
+            cls.delayed_tasks_pool.cancel_all(wait = True)
+        )
 
     @classmethod
     def run(
