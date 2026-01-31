@@ -30,3 +30,9 @@ Repeater Nexus 使用 [MIT](./LICENSE) 许可证。
 | `loguru`           | 0.7.3   |
 | `aiofiles`         | 25.1.0  |
 | `environs`         | 14.5.0  |
+
+---
+
+## 详细 Nexus 文档
+
+- [Nexus 详细文档](./docs/index.md)
