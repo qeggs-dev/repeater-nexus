@@ -3,6 +3,7 @@ import aiofiles
 from os import PathLike
 from pathlib import Path
 from typing import Generator
+from loguru import logger
 
 from ..Global_Config import GlobalConfigManager
 from ..Assist import validate_path
@@ -39,7 +40,12 @@ class Storage:
         if self.validate_file_name(file):
             file_path = self.get_file_path(file)
             async with aiofiles.open(file_path, mode = "rb") as f:
-                return await f.read()
+                data = await f.read()
+            logger.info(
+                "Loaded file {file}",
+                file = file_path.name
+            )
+            return data
         else:
             return None
     
@@ -50,6 +56,10 @@ class Storage:
                 file_path.parent.mkdir(parents = True)
             async with aiofiles.open(file_path, mode = "wb") as f:
                 await f.write(content)
+            logger.info(
+                "Saved file {file}",
+                file = file_path.name
+            )
         else:
             raise ValueError("Path is invalid")
     
@@ -58,6 +68,10 @@ class Storage:
             file_path = self.get_file_path(file)
             if file_path.exists():
                 file_path.unlink()
+                logger.info(
+                    "Deleted file {file}",
+                    file = file_path.name
+                )
         else:
             raise ValueError("Path is invalid")
     
