@@ -27,7 +27,6 @@ class NexusCore:
                         )
                     )
                 )
-            logger.info(f"Loaded configs from {path}")
         except Exception as e:
             path.parent.mkdir(parents=True, exist_ok=True)
             with open(path, "wb") as f:
