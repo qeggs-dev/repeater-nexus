@@ -54,6 +54,7 @@ async def submit_json(pool: str, request: SubmitRequest):
     return ORJSONResponse(
         content = {
             "status": "success",
+            "message": "File uploaded",
             "file_uuid": file_uuid
         }
     )
