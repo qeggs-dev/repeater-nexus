@@ -6,8 +6,8 @@ from ..._resource import Resource
 from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 
-@Resource.app.delete("/api/{poll}/files/{id}/remove")
-async def upload_json(pool: str, id: str):
+@Resource.app.delete("/api/{pool}/files/{id}/remove")
+async def remove(pool: str, id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
     try:
