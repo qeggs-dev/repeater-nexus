@@ -1,7 +1,10 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from typing import AsyncIterator
+from ..Lifespan import StartHandler, ExitHandler
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    await StartHandler.execute()
     yield
+    await ExitHandler.execute()
