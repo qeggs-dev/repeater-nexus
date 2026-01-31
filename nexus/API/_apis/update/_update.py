@@ -13,7 +13,17 @@ from ._request import UpdateRequest
 async def update_json(pool: str, id: str, request: UpdateRequest):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
-    storage = Storage(path, pool)
+    try:
+        storage = Storage(path, pool)
+    except ValueError as e:
+        return ORJSONResponse(
+            {
+                "status": "error",
+                "message": str(e)
+            },
+            status_code=400
+        )
+    
     try:
         file_uuid = UUID(id)
     except ValueError:

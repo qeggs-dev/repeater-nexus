@@ -13,7 +13,16 @@ from ._response import DownloadResponse
 async def download_json(pool: str, id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
-    storage = Storage(path, pool)
+    try:
+        storage = Storage(path, pool)
+    except ValueError as e:
+        return ORJSONResponse(
+            DownloadResponse(
+                status = "error",
+                message = str(e)
+            ).model_dump(exclude_none=True),
+            status_code = 400
+        )
     try:
         file_uuid = UUID(id)
     except ValueError:

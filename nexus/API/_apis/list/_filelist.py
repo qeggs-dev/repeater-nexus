@@ -10,7 +10,15 @@ from ....Storage import Storage
 @Resource.app.get("/api/{pool}/files/list")
 async def file_list(pool: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
-    storage = Storage(path, pool)
+    try:
+        storage = Storage(path, pool)
+    except ValueError as e:
+        return ORJSONResponse(
+            status_code = 404,
+            content = {
+                "error": str(e)
+            }
+        )
     logger.info(
         "Getting file list"
     )
@@ -21,7 +29,15 @@ async def file_list(pool: str):
 @Resource.app.get("/api/{pool}/files/list/stream")
 async def file_list_stream(pool: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
-    storage = Storage(path, pool)
+    try:
+        storage = Storage(path, pool)
+    except ValueError as e:
+        return ORJSONResponse(
+            status_code = 404,
+            content = {
+                "error": str(e)
+            }
+        )
     logger.info(
         "Getting file list"
     )
