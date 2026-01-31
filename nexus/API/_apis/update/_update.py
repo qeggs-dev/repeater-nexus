@@ -9,7 +9,7 @@ from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 from ._request import UpdateRequest
 
-@Resource.app.get("/api/{pool}/files/{id}/update/json")
+@Resource.app.put("/api/{pool}/files/{id}/update/json")
 async def update_json(pool: str, id: str, request: UpdateRequest):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
