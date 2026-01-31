@@ -7,7 +7,7 @@ from ..._resource import Resource
 from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 
-@Resource.app.get("/api/{pool}/files/list")
+@Resource.app.get("/api/{pool}/list")
 async def file_list(pool: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
@@ -26,7 +26,7 @@ async def file_list(pool: str):
         content = storage.filelist()
     )
 
-@Resource.app.get("/api/{pool}/files/list/stream")
+@Resource.app.get("/api/{pool}/list/stream")
 async def file_list_stream(pool: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
