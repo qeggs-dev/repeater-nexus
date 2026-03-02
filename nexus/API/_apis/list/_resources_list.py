@@ -23,7 +23,7 @@ async def resources_list(pool: str):
         "Getting file list"
     )
     return ORJSONResponse(
-        content = storage.filelist()
+        content = list(storage.resources())
     )
 
 @Resource.app.get("/api/{pool}/resources_list/stream")
