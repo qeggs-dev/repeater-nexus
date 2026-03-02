@@ -9,8 +9,8 @@ from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 from ._response import DownloadResponse
 
-@Resource.app.get("/api/{pool}/files/{id}/download/json")
-async def download_json(pool: str, id: str):
+@Resource.app.get("/api/{pool}/files/{resources_id}/download/{data_id}")
+async def download_json(pool: str, resources_id: str, data_id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
     try:
@@ -24,7 +24,7 @@ async def download_json(pool: str, id: str):
             status_code = 400
         )
     try:
-        file_uuid = UUID(id)
+        file_uuid = UUID(resources_id)
     except ValueError:
         return ORJSONResponse(
             DownloadResponse(
@@ -34,9 +34,7 @@ async def download_json(pool: str, id: str):
             status_code=400
         )
     
-    file_name = f"{file_uuid}{suffix}"
-    
-    if not storage.exists(file_name):
+    if not storage.data_exists(file_uuid, data_id):
         return ORJSONResponse(
             DownloadResponse(
                 status = "error",
@@ -45,12 +43,15 @@ async def download_json(pool: str, id: str):
             status_code=404
         )
     
-    file = await storage.load(file_name)
 
     try:
-        data = orjson.loads(file)
+        data = await storage.load(file_uuid, data_id)
     except orjson.JSONDecodeError:
-        logger.error(f"Failed to decode file {file_name}")
+        logger.error(
+            "Failed to decode file {resource_id}/{data_id}",
+            resource_id = resources_id,
+            data_id = data_id
+        )
         return ORJSONResponse(
             DownloadResponse(
                 status = "error",
@@ -58,11 +59,6 @@ async def download_json(pool: str, id: str):
             ).model_dump(exclude_none=True),
             status_code=500
         )
-    
-    logger.info(
-        "File loaded: {file_uuid}",
-        file_uuid = file_uuid
-    )
 
     return ORJSONResponse(
         DownloadResponse(
