@@ -8,7 +8,7 @@ from ..._resource import Resource
 from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 
-@Resource.app.get("/api/{pool}/resources/{resource_id}/data_list")
+@Resource.app.get("/api/{pool}/resources/{resource_id}/datas")
 async def resource_list(pool: str, resource_id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
@@ -35,11 +35,11 @@ async def resource_list(pool: str, resource_id: str):
         "Getting file list"
     )
     return ORJSONResponse(
-        content = storage.datas(resource_id)
+        content = list(storage.datas(resource_id))
     )
 
-@Resource.app.get("/api/{pool}/resources/{resources_list}/stream/data_list")
-async def resource_list_stream(pool: str):
+@Resource.app.get("/api/{pool}/resources/{resource_id}/datas/stream")
+async def resource_list_stream(pool: str, resource_id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
         storage = Storage(path, pool)
@@ -55,6 +55,6 @@ async def resource_list_stream(pool: str):
     )
     
     return StreamingResponse(
-        content = (orjson.dumps(id) for id in storage.resources()),
+        content = storage.datas(resource_id),
         media_type = "application/x-ndjson"
     )

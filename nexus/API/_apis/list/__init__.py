@@ -1,6 +1,6 @@
-from ._file_list import (
-    file_list,
-    file_list_stream
+from ._data_list import (
+    data_list,
+    data_list_stream
 )
 from ._resources_list import (
     resource_list,
@@ -8,8 +8,8 @@ from ._resources_list import (
 )
 
 __all__ = [
-    "file_list",
-    "file_list_stream",
+    "data_list",
+    "data_list_stream",
     "resource_list",
     "resource_list_stream"
 ]
