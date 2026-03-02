@@ -2,7 +2,7 @@
 
 列出指定 Pool 中的资源列表
 
-- `/api/{pool}/resources_list`
+- `/api/{pool:str}/resources_list`
   - **Method**: `GET`
   - **Request:**
     - **path_params**:
