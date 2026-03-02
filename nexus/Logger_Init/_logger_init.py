@@ -40,9 +40,3 @@ def logger_init(config: LoggerConfig):
         retention = config.retention,
         compression = config.compression,
     )
-
-    logger.configure(
-        extra={
-            "module": "[System]"
-        }
-    )
