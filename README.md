@@ -4,8 +4,9 @@
 
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg?logo=python)](https://www.python.org/downloads/) [![License: MIT](https://img.shields.io/badge/License-MIT-63b9ff.svg)](https://opensource.org/licenses/MIT)
 
-**&gt; Shared JSON storage service for the Repeater family of projects. &lt;**
-**&gt; Repeater 系列共享 JSON 存储服务。 &lt;**
+**Shared JSON storage service for the Repeater family of projects.**
+
+**Repeater 系列共享 JSON 存储服务。**
 
 </center>
 
