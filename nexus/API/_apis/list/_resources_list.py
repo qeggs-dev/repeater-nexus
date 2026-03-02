@@ -1,6 +1,5 @@
 import orjson
 
-from uuid import UUID
 from fastapi.responses import ORJSONResponse, StreamingResponse
 from loguru import logger
 
@@ -8,8 +7,8 @@ from ..._resource import Resource
 from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 
-@Resource.app.get("/api/{pool}/resources/{resource_id}/datas")
-async def resource_list(pool: str, resource_id: str):
+@Resource.app.get("/api/{pool}/resources_list")
+async def resources_list(pool: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
         storage = Storage(path, pool)
@@ -20,26 +19,15 @@ async def resource_list(pool: str, resource_id: str):
                 "error": str(e)
             }
         )
-    
-    try:
-        uuid = UUID(resource_id)
-    except ValueError as e:
-        return ORJSONResponse(
-            status_code = 404,
-            content = {
-                "error": str(e)
-            }
-        )
-    
     logger.info(
         "Getting file list"
     )
     return ORJSONResponse(
-        content = list(storage.datas(resource_id))
+        content = storage.filelist()
     )
 
-@Resource.app.get("/api/{pool}/resources/{resource_id}/datas/stream")
-async def resource_list_stream(pool: str, resource_id: str):
+@Resource.app.get("/api/{pool}/resources_list/stream")
+async def resources_list_stream(pool: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
         storage = Storage(path, pool)
@@ -55,6 +43,6 @@ async def resource_list_stream(pool: str, resource_id: str):
     )
     
     return StreamingResponse(
-        content = storage.datas(resource_id),
+        content = (orjson.dumps(id) for id in storage.resources()),
         media_type = "application/x-ndjson"
     )
