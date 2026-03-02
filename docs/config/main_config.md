@@ -37,10 +37,10 @@
         "retention": "7 days",
 
         // 控制台日志格式
-        "console_format": "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{extra[module]}</cyan> - <level>{message}</level>",
+        "console_format": "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> - <level>{message}</level>",
 
         // 文件日志格式
-        "file_format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {extra[module]} - {message}",
+        "file_format": "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} - {message}",
 
         // 日志文件压缩格式
         // 可选项：
