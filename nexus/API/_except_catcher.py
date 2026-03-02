@@ -1,4 +1,5 @@
 import time
+import traceback
 
 from ._resource import Resource
 from datetime import datetime
@@ -12,10 +13,14 @@ async def except_catcher(request: Request, call_next: Callable[[Request], Awaita
     try:
         response: Response = await call_next(request)
         return response
-    except BaseException as e:
+    except Exception as e:
         now = time.time_ns()
         now_datetime = datetime.fromtimestamp(now / 1e9) # POSIX timestamp to datetime
-        logger.exception(e)
+        logger.exception(
+            "Error {error}\n{traceback}",
+            error = str(e),
+            traceback = traceback.format_exc(),
+        )
         return ORJSONResponse(
             status_code=500,
             content={
