@@ -7,7 +7,7 @@ from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 
 @Resource.app.delete("/api/{pool}/resources/{resource_id}/remove/data/{data_id}")
-async def remove_resource(pool: str, resource_id: str, data_id: str):
+async def remove_data(pool: str, resource_id: str, data_id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
         storage = Storage(path, pool)
