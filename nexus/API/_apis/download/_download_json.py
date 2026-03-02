@@ -9,7 +9,7 @@ from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 from ._response import DownloadResponse
 
-@Resource.app.get("/api/{pool}/files/{resources_id}/download/{data_id}")
+@Resource.app.get("/api/{pool}/download/{resources_id}/{data_id}")
 async def download_json(pool: str, resources_id: str, data_id: str):
     path = GlobalConfigManager.get_configs().storage.storage_path
     suffix = GlobalConfigManager.get_configs().storage.file_suffix
