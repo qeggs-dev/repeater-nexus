@@ -8,7 +8,7 @@
     - **path_params**:
       - `pool`: mexus 池名称
     - **json**:
-      - `content` (Any): JSON 数据
+      - `content` (dict[str, Any]): JSON 数据
       - `timeout` (int, float, null): 超时时间
   - **Response:**
     - `status` (str): 状态
