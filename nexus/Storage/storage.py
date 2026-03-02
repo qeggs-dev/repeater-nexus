@@ -118,14 +118,12 @@ class Storage:
     def resources(self) -> Generator[str, None, None]:
         base_path = self.pool_path
         for file in base_path.iterdir():
-            if file.is_file():
+            if file.is_dir():
                 yield file.name
     
     def datas(self, resource_id: UUID) -> Generator[str, None, None]:
         self.raise_check_resource(resource_id)
         base_path = self.get_resource_path(resource_id)
         for file in base_path.iterdir():
-            yield fname_b64_decode(file.stem)
-    
-    def filelist(self) -> list[str]:
-        return list(self.resources())
+            if file.is_file():
+                yield fname_b64_decode(file.stem)
