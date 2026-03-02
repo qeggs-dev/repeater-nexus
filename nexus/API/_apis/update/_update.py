@@ -10,7 +10,7 @@ from ....Storage import Storage
 from ._request import UpdateRequest
 
 @Resource.app.put("/api/{pool}/resources/{resource_id}/update")
-async def update_json(pool: str, resource_id: str, request: UpdateRequest):
+async def update(pool: str, resource_id: str, request: UpdateRequest):
     path = GlobalConfigManager.get_configs().storage.storage_path
     try:
         storage = Storage(path, pool)
