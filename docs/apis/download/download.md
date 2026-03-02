@@ -2,12 +2,13 @@
 
 下载 Mexus 里指定项的 JSON 数据
 
-- `/api/{pool:str}/files/{file_uuid:str}/download/json`
+- `/api/{pool:str}/download/{resources_id:str}/{data_id:str}`
   - **Method**: `GET`
   - **Request:**
     - **path_params**:
       - `pool`: mexus 池名称
-      - `file_uuid`: 文件 UUID
+      - `resources_id`: 资源 UUID
+      - `data_id`: 数据 ID
   - **Response:**
     - `status` (str): 状态
     - `message` (str): 状态信息
