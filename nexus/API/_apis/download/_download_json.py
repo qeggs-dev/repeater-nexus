@@ -61,7 +61,6 @@ async def download_json(pool: str, id: str):
     
     logger.info(
         "File loaded: {file_uuid}",
-        module = "API/Download/JSON",
         file_uuid = file_uuid
     )
 

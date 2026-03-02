@@ -9,10 +9,9 @@ from ....Global_Config import GlobalConfigManager
 from ....Storage import Storage
 from ._request import SubmitRequest
 
-@Resource.app.post("/api/{pool}/submit/json")
+@Resource.app.post("/api/{pool}/submit")
 async def submit_json(pool: str, request: SubmitRequest):
     path = GlobalConfigManager.get_configs().storage.storage_path
-    suffix = GlobalConfigManager.get_configs().storage.file_suffix
     try:
         storage = Storage(path, pool)
     except ValueError as e:
@@ -24,37 +23,18 @@ async def submit_json(pool: str, request: SubmitRequest):
             status_code=400
         )
     while True:
-        file_uuid = uuid4()
-        file_name = f"{file_uuid}{suffix}"
-        if not storage.exists(file_name):
+        resource_uuid = uuid4()
+        if not storage.resource_exists(resource_uuid):
             break
     
-    data = orjson.dumps(request.content)
-    await storage.save(file_name, data)
-    logger.info(
-        "File saved: {file_uuid}",
-        module = "API/Upload/JSON",
-        file_uuid = file_uuid
-    )
-
-    if request.timeout is not None:
-        async def delete_file():
-            storage.delete(file_name)
-            logger.info(
-                "File deleted: {file_uuid}",
-                module = "API/Upload/JSON",
-                file_uuid = file_uuid
-            )
-        
-        await Resource.delayed_tasks_pool.add_task(
-            sleep_time = request.timeout,
-            task = delete_file()
-        )
-        
+    for key, value in request.content.items():
+        await storage.save(resource_uuid, key, value)
+    
     return ORJSONResponse(
-        content = {
-            "status": "success",
-            "message": "File uploaded",
-            "file_uuid": file_uuid
-        }
+        {
+            "status": "ok",
+            "message": "submit success",
+            "resource_uuid": str(resource_uuid)
+        },
+        status_code=200
     )

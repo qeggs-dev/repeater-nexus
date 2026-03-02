@@ -5,5 +5,5 @@ class UpdateRequest(BaseModel):
     """
     Update Request
     """
-    content: Any
+    content: dict[str, Any]
     timeout: int | float | None = None

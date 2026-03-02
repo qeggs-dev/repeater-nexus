@@ -1,1 +1,1 @@
-from ._remove import remove
+from ._remove_data import remove_data

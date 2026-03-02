@@ -5,5 +5,5 @@ class SubmitRequest(BaseModel):
     """
     Submit Request
     """
-    content: Any
+    content: dict[str, Any]
     timeout: int | float | None = None
