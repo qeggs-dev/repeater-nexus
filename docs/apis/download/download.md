@@ -2,7 +2,7 @@
 
 下载 Mexus 里指定项的 JSON 数据
 
-- `/api/{pool:str}/download/{resources_id:str}/{data_id:str}`
+- `/api/{pool:str}/resources/{resources_id:str}/download/{data_id:str}`
   - **Method**: `GET`
   - **Request:**
     - **path_params**:
