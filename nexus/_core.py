@@ -10,9 +10,6 @@ from .Logger_Init import logger_init
 from ._info import __version__
 
 class NexusCore:
-    def __init__(self):
-        self.resource = Resource()
-    
     def init_logger(self):
         logger_init(GlobalConfigManager.get_configs().logger)
     
@@ -37,13 +34,16 @@ class NexusCore:
                 )
             logger.warning(f"Failed to load configs from {path}, created a new one. Error: {e}")
     
+    def init_all_resources(self):
+        Resource.init_all()
+    
     def run(self):
         logger.info("Starting Nexus...")
         logger.info(
             "Version: {version}",
             version = __version__
         )
-        self.resource.run(
+        Resource.run(
             host = GlobalConfigManager.get_configs().server.host,
             port = GlobalConfigManager.get_configs().server.port,
             reload = GlobalConfigManager.get_configs().server.reload,
