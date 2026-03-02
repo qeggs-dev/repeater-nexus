@@ -2,7 +2,7 @@
 
 向 Mexus 提交 JSON 数据
 
-- `/api/{pool:str}/submit/json`
+- `/api/{pool:str}/submit`
   - **Method**: `POST`
   - **Request:**
     - **path_params**:
