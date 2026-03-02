@@ -2,14 +2,14 @@
 
 更新 Mexus 里指定项的 JSON 数据
 
-- `/api/{pool:str}/files/{file_uuid:str}/update/json`
+- `/api/{pool:str}/resources/{resource_id:str}/update`
   - **Method**: `PUT`
   - **Request:**
     - **path_params**:
       - `pool`: mexus 池名称
-      - `file_uuid`: 文件 UUID
+      - `resource_id`: 资源 UUID
     - **json**:
-      - `content` (Any): JSON 数据
+      - `content` (dict[str, Any]): JSON 数据
       - `timeout` (int, float, null): 超时时间
   - **Response:**
     - `status` (str): 状态
