@@ -34,7 +34,7 @@ class Storage:
     
     @property
     def pool_path(self) -> Path:
-        return self.base_path / self.pool
+        return self.base_path / fname_b64_encode(self.pool)
     
     def validate_data(self, resource_id: UUID, data_id: str) -> bool:
         return validate_path(self._base_path, self.get_data_path(resource_id, data_id))
