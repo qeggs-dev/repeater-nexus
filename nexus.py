@@ -7,6 +7,7 @@ def main():
     nexus = NexusCore()
     nexus.load_configs(env.str("CONFIG_PATH"))
     nexus.init_logger()
+    nexus.init_all_resources()
     nexus.run()
 
 if __name__ == "__main__":
