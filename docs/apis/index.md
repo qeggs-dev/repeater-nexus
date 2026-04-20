@@ -17,3 +17,6 @@
 
 ## Download API
   - [Download API](./download/download.md)
+
+## Alived API
+  - [Alived API](./alived.md)
