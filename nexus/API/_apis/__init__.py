@@ -3,3 +3,4 @@ from .download import *
 from .list import *
 from .remove import *
 from .update import *
+from ._alived import alived
